@@ -1,0 +1,30 @@
+# This workflow runs the database migration tool when a change is made in the 'database/' folder and pushed to the 'main' branch.
+
+name: Apply Database Migrations
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "database/**" ]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Apply migrations
+      run: >
+        dotnet run
+        --host ${{ secrets.DB_HOST }}
+        --port ${{ secrets.DB_PORT }}
+        --database ${{ secrets.DB_NAME }}
+        --username ${{ secrets.DB_USER }}
+        --password ${{ secrets.DB_PASSWORD }}
+        --what-if
