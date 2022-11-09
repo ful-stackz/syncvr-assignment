@@ -6,6 +6,13 @@ on:
   push:
     branches: [ "main" ]
     paths: [ "database/**" ]
+  workflow_dispatch:
+    inputs:
+      what_if:
+        description: Run in What-If mode, does not apply migrations
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   run:
