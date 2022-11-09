@@ -12,7 +12,7 @@ on:
         description: Run in What-If mode, does not apply migrations
         type: boolean
         required: false
-        default: false
+        default: true
 
 jobs:
   run:
@@ -25,13 +25,21 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-        
+
+    - name: Setup Google Cloud SQL Proxy
+      uses: mattes/gce-cloudsql-proxy-action@v1
+      with:
+        creds: ${{ secrets.SYNCVR_GOOGLE_SQL_ACCOUNT }}
+        instance: syncvr-assignment-368113:europe-west4:syncvr-production
+
     - name: Apply migrations
+      # use --host localhost since we are using a proxy
       run: >
         dotnet run
-        --host ${{ secrets.DB_HOST }}
+        --project ./database/src/SyncVR.Database/SyncVR.Database.csproj
+        --host localhost
         --port ${{ secrets.DB_PORT }}
         --database ${{ secrets.DB_NAME }}
         --username ${{ secrets.DB_USER }}
         --password ${{ secrets.DB_PASSWORD }}
-        --what-if
+        ${{ github.event.inputs.what_if && '--what-if' || '' }}
