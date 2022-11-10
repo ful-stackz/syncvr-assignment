@@ -44,6 +44,10 @@ public class QueriesStore
         });
         await _db.SaveChangesAsync();
 
-        return model with { Id = dbo.Entity.Id };
+        return model with
+        {
+            Id = dbo.Entity.Id,
+            CreatedAt = dbo.Entity.CreatedAt,
+        };
     }
 }
