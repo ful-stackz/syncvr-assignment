@@ -1,4 +1,4 @@
-# SyncVR Developer Assignment - Database Migrations Tool
+# Database Migrations Tool - SyncVR Developer Assignment
 
 This folder contains a database migrations tool. In a nutshell, this is a .NET 6 console application that takes a bunch of `.sql` files (or _migrations_), checks with the database which migrations are already applied, and executes only the ones that are not yet applied.
 
