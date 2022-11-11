@@ -3,7 +3,7 @@
 <template>
   <header class="flex flex-col items-center justify-center py-6 px-4">
     <h1
-      class="font-lobster text-glow text-4xl font-bold text-pink-500 sm:text-6xl lg:text-8xl"
+      class="font-lobster text-glow text-center text-4xl font-bold text-pink-500 sm:text-6xl lg:text-8xl"
     >
       The Fibonacci Calculator
     </h1>
